@@ -1,11 +1,17 @@
 FROM ubuntu:latest
 MAINTAINER Rodney Hawkins
 
-RUN apt-get update && apt-get install -y -qq --no-install-recommends curl python openssh-client python-openssl python-pip apt-transport-https \
+RUN apt-get update && apt-get install -y -qq --no-install-recommends curl \
+    python \
+    openssh-client \
+    python-openssl \
+    python-pip \
+    apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common \
-    ansible
+    ansible \
+    ruby-dev
 
 # Install gcloud-sdk and kubectl
 ENV HOME /
@@ -19,8 +25,11 @@ RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-RUN apt-get update && apt-get install docker-ce
+RUN apt-get update && apt-get install -y docker-ce
 RUN apt-get clean && rm -rf /var/lib/apt-lists/*
+
+# Install Tooling
+RUN gem install kubernetes-deploy
 
 RUN pip install docker-compose
 
