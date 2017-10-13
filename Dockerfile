@@ -6,17 +6,19 @@ RUN apt-get update && apt-get install -y -qq --no-install-recommends curl \
     openssh-client \
     python-openssl \
     python-pip \
+    python-setuptools \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common \
     ansible \
-    ruby-dev
+    ruby-dev \
+    build-essential
 
 # Install gcloud-sdk and kubectl
 ENV HOME /
 RUN curl https://sdk.cloud.google.com | bash
-ENV PATH google-cloud-sdk/bin:$PATH
+ENV PATH /google-cloud-sdk/bin:$PATH
 RUN gcloud components install kubectl
 
 # Install Docker
