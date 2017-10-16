@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y -qq --no-install-recommends curl \
     ruby-dev \
     build-essential
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
+
 # Install gcloud-sdk and kubectl
 ENV HOME /
 RUN curl https://sdk.cloud.google.com | bash
